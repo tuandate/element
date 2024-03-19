@@ -1,7 +1,7 @@
 name: Update Element
 on:
   schedule:
-    - cron: '0 0 * * 0'  # 每周执行一次
+    - cron: '0 0 * * 0'
   workflow_dispatch:
 
 permissions:                
@@ -43,8 +43,9 @@ jobs:
         run: |
           shopt -s extglob
           rm -rf !(element-v*|.git|.github|config.json)
-          mv element-v*/. .
-          rm -rf element-v*
+          mv element-v* temp
+          mv temp/* .
+          rm -rf temp
         shell: bash
 
       - name: Commit and push changes
